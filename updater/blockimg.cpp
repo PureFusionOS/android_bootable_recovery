@@ -1270,6 +1270,7 @@ static int PerformCommandErase(CommandParameters& params) {
 
   RangeSet tgt = RangeSet::Parse(params.tokens[params.cpos++]);
 
+#ifndef SUPPRESS_EMMC_WIPE
   if (params.canwrite) {
     LOG(INFO) << " erasing " << tgt.blocks() << " blocks";
 
@@ -1284,6 +1285,7 @@ static int PerformCommandErase(CommandParameters& params) {
         PLOG(ERROR) << "BLKDISCARD ioctl failed";
         return -1;
       }
+ #endif
     }
   }
 
